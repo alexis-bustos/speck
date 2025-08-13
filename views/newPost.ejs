@@ -1,0 +1,19 @@
+<%- include('partials/header') -%>
+<body>
+  <h1>Create a New Speck</h1>
+  <form class="post-form" action="/posts" method="POST">
+    <input class="input post-input" name="title" placeholder="Title" required />
+    <input
+      class="input post-input"
+      name="author"
+      placeholder="Author"
+      required />
+    <textarea
+      class="input post-input content-area"
+      name="content"
+      placeholder="Content"></textarea>
+    <button class="submit-btns expand-btn" type="submit">Post</button>
+  </form>
+  <button class="submit-btns"><a href="/posts">Back</a></button>
+</body>
+<%- include('partials/footer') -%>

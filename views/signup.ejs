@@ -1,0 +1,27 @@
+<%- include('partials/header') -%>
+<h1>Sign Up for Speck</h1>
+<% if (locals.messages.errors) { %> <% messages.errors.forEach( el => { %>
+
+<div class="alert alert-danger"><%= el.msg %></div>
+<% }) %> <% } %>
+<form action="/signup" method="POST">
+  <input
+    class="input signup"
+    type="text"
+    name="userName"
+    placeholder="User Name" />
+  <input class="input signup" type="email" name="email" placeholder="Email" />
+  <input
+    class="input signup"
+    type="password"
+    name="password"
+    placeholder="Password" />
+  <input
+    class="input signup"
+    type="password"
+    name="confirmPassword"
+    placeholder="Confirm Password" />
+  <input class="submit-btns expand-btn" type="submit" />
+</form>
+<button class="submit-btns"><a href="/">Back</a></button>
+<%- include('partials/footer') -%>

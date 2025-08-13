@@ -1,0 +1,149 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+* {
+  font-family: serif;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to top, #060c0b, #ffffff);
+  /* background: linear-gradient(to bottom, #060c0b, #ffffff); */
+  /* Optional: Ensures the background covers the entire viewport */
+  min-height: 100vh;
+  margin: 0; /* Removes default body margin */
+}
+h1 {
+  color: dodgerblue;
+  text-align: center;
+  background-color: #ffffff44;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 2.5rem;
+}
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+.not {
+  text-decoration: underline;
+}
+
+.links {
+  border-radius: 5px;
+  border: 1px solid dodgerblue;
+  background-color: dodgerblue;
+  color: white;
+  font-size: 1em;
+  text-decoration: none;
+  padding: 10px 20px;
+}
+
+.home-btns {
+  width: 300px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.submit-btns {
+  color: white;
+  background-color: dodgerblue;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: none;
+  border: 0;
+  margin-top: 25px;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+}
+.post > div > .submit-btns {
+  color: white;
+}
+.submit-btns:hover {
+  filter: brightness(0.95);
+}
+
+.delete-btns {
+  color: white;
+  background-color: rgb(243, 33, 33);
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: none;
+  border: 0;
+  margin-top: 25px;
+  cursor: pointer;
+  height: 37px;
+  font-size: 1rem;
+}
+.delete-btns:hover {
+  filter: brightness(0.95);
+}
+.edit-del-btns {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.input {
+  height: 25px;
+  border-radius: 5px;
+  text-indent: 10px;
+}
+
+.signup {
+  display: block;
+  margin-top: 15px;
+}
+
+.expand-btn {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
+
+.post-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 25px;
+  gap: 15px;
+}
+.post-input {
+  display: block;
+  width: 100%;
+}
+.content-area {
+  padding-top: 5px;
+  border: 1px solid black;
+  height: 50px;
+}
+
+.post {
+  margin-top: 20px;
+  background-color: #ffffff44;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.post a {
+  text-decoration: none;
+  color: rgb(0, 117, 251);
+}
+
+.post-content {
+  margin: 10px;
+  background-color: #ffffff6d;
+  padding: 5px 10px;
+  border-radius: 5px;
+}

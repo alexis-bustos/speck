@@ -1,0 +1,24 @@
+<%- include('partials/header') -%>
+<h1>All Posts</h1>
+
+<a class="submit-btns" href="/posts/newPost">Create New Post</a>
+
+<% post.forEach(post => { %>
+<div class="post">
+  <h2 data-id="<%= post._id %>">
+    <a href="/posts/<%= post.id %>"><%= post.title %></a>
+  </h2>
+  <p>By <%= post.author %> - <%= post.createdAt.toDateString() %></p>
+  <% if(user && post.userId === user.id) { %>
+  <a href="/posts/<%= post._id %>/edit">Edit</a>
+  <% } %> <% if(user && post.userId === user.id) { %>
+  <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+    <button type="submit">Delete</button>
+  </form>
+  <% } %>
+  <hr />
+</div>
+<% }) %>
+
+<a class="submit-btns" href="/logout">Logout</a>
+<%- include('partials/footer') -%>
