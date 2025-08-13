@@ -60,7 +60,7 @@ module.exports = {
   deletePost: async (req, res) => {
     try {
       const post = await Post.findById(req.params.id);
-      if (post.userId !== req.user.id) {
+      if (String(post.userId) !== req.user.id) {
         return res.status(403).send("Unauthorized");
       }
       await Post.findByIdAndDelete(req.params.id);
@@ -85,7 +85,7 @@ module.exports = {
       if (!post) {
         return res.status(404).send("Post not found");
       }
-      if (post.userId !== req.user.id) {
+      if (String(post.userId) !== req.user.id) {
         return res.status(403).send("Unauthorized");
       }
       await Post.findByIdAndUpdate(req.params.id, {
