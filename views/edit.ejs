@@ -1,10 +1,23 @@
 <%- include('partials/header') -%>
 <h1>Edit Blog Post</h1>
-<form action="/posts/<%= post._id %>?_method=PUT" method="POST">
-  <input name="title" value="<%= post.title %>" required />
-  <input name="author" value="<%= post.author %>" required />
-  <textarea name="content"><%= post.content %></textarea>
-  <button type="submit">Update</button>
+<form
+  class="post-form"
+  action="/posts/<%= post._id %>?_method=PUT"
+  method="POST">
+  <input
+    class="input post-input"
+    name="title"
+    value="<%= post.title %>"
+    required />
+  <input
+    class="input post-input"
+    name="author"
+    value="<%= post.author %>"
+    required />
+  <textarea class="input post-input content-area" name="content">
+<%= post.content %></textarea
+  >
+  <button class="update-btns expand-btn" type="submit">Update</button>
 </form>
-<a href="/posts/<%= post._id %>">Cancel</a>
+<a class="submit-btns" href="/posts/<%= post._id %>">Cancel</a>
 <%- include('partials/footer') -%>

@@ -89,6 +89,21 @@ h1 {
 .delete-btns:hover {
   filter: brightness(0.95);
 }
+.update-btns {
+  color: rgb(0, 0, 0);
+  background-color: rgb(189, 189, 189);
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: none;
+  border: 0;
+  margin-top: 25px;
+  cursor: pointer;
+  height: 37px;
+  font-size: 1rem;
+}
+.update-btns:hover {
+  filter: brightness(0.95);
+}
 .edit-del-btns {
   display: flex;
   justify-content: center;
