@@ -26,6 +26,57 @@
     <% } %>
   </div>
 </div>
+<!-- Lightbox modal -->
+<div
+  id="lightbox"
+  class="lightbox hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Image viewer"
+  tabindex="-1">
+  <button class="lightbox__close" aria-label="Close">&times;</button>
+  <img id="lightbox-image" alt="" />
+</div>
 <a class="submit-btns" href="/posts">Back</a>
 <a class="submit-btns" href="/logout">Logout</a>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-image");
+    const closeBtn = document.querySelector(".lightbox__close");
+
+    // Open when clicking any post image
+    document.querySelectorAll(".post-image").forEach((img) => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt || "";
+        lightbox.classList.remove("hidden");
+        document.body.style.overflow = "hidden"; // prevent background scroll
+        lightbox.focus();
+      });
+    });
+
+    const closeLightbox = () => {
+      lightbox.classList.add("hidden");
+      lightboxImg.src = "";
+      document.body.style.overflow = "";
+    };
+
+    // Close on X button
+    closeBtn.addEventListener("click", closeLightbox);
+
+    // Close when clicking the overlay (but not the image)
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Close on Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !lightbox.classList.contains("hidden")) {
+        closeLightbox();
+      }
+    });
+  });
+</script>
 <%- include('partials/footer') -%>

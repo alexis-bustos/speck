@@ -140,9 +140,9 @@ h1 {
   width: 100%;
 }
 .content-area {
-  padding-top: 5px;
+  padding: 5px;
   border: 1px solid black;
-  height: 50px;
+  height: 20vh;
 }
 
 .post {
