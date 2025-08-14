@@ -1,12 +1,33 @@
 const Post = require("../models/Post");
+const cloudinary = require("../middleware/cloudinary");
 
 module.exports = {
   getAllPosts: async (req, res) => {
     try {
-      const post = await Post.find().sort({ createdAt: -1 });
+      let post = await Post.find().sort({ createdAt: -1 });
       // const post = await Post.find({ userId: req.user.id }).sort({
       //   createdAt: -1,
       // });
+
+      // Iterate through each post in the array
+      for (let i = 0; i < post.length; i++) {
+        const currentPost = post[i]; // Get the current post document
+
+        // Check if the fields exist and set defaults if they don't
+        if (currentPost.image === undefined || currentPost.image === null) {
+          currentPost.image = null; // Or null, or a default URL
+        }
+        if (
+          currentPost.cloudinaryId === undefined ||
+          currentPost.cloudinaryId === null
+        ) {
+          currentPost.cloudinaryId = null;
+        }
+        // Save the updated single document
+        // This will write the changes back to the database for the current post
+        await currentPost.save();
+      }
+
       res.render("posts", {
         post,
         user: req.user, // pass the User to the view as well to hide edit button on other Users' posts
@@ -18,9 +39,7 @@ module.exports = {
   getPostById: async (req, res) => {
     try {
       const post = await Post.findById(req.params.id);
-      console.log(req.user);
-      console.log(req.user.id);
-      console.log(post.userId);
+
       if (!post) {
         return res.status(404).send("Post not found");
       }
@@ -43,13 +62,17 @@ module.exports = {
   },
   createPost: async (req, res) => {
     try {
+      const result = await cloudinary.uploader.upload(req.file.path);
       const { title, content, author } = req.body;
       const userId = req.user.id;
+
       await Post.create({
         title,
         content,
         author,
         userId,
+        image: result.secure_url,
+        cloudinaryId: result.public_id,
       });
       console.log("Post has been added!");
       res.redirect("/posts");
