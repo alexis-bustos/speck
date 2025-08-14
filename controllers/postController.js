@@ -62,17 +62,20 @@ module.exports = {
   },
   createPost: async (req, res) => {
     try {
-      const result = await cloudinary.uploader.upload(req.file.path);
-      const { title, content, author } = req.body;
+      let result = "";
+      if (req.file) {
+        result = await cloudinary.uploader.upload(req.file.path);
+      }
+      const { title, content } = req.body;
       const userId = req.user.id;
 
       await Post.create({
         title,
         content,
-        author,
+        author: req.user.userName,
         userId,
-        image: result.secure_url,
-        cloudinaryId: result.public_id,
+        image: result.secure_url || null,
+        cloudinaryId: result.public_id || null,
       });
       console.log("Post has been added!");
       res.redirect("/posts");
