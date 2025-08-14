@@ -106,7 +106,7 @@ module.exports = {
   },
   updatePost: async (req, res) => {
     try {
-      const { title, content, author } = req.body;
+      const { title, content } = req.body;
       const post = await Post.findById(req.params.id);
       if (!post) {
         return res.status(404).send("Post not found");
@@ -117,7 +117,7 @@ module.exports = {
       await Post.findByIdAndUpdate(req.params.id, {
         title,
         content,
-        author,
+        author: req.user.userName,
       });
 
       res.redirect(`/posts/${req.params.id}`);
