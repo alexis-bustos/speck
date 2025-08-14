@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const upload = require("../middleware/multer");
 const postController = require("../controllers/postController");
 const { ensureAuth } = require("../middleware/auth");
 
@@ -9,7 +10,7 @@ router.get("/", ensureAuth, postController.getAllPosts);
 // GET/CREATE/SHOW FORM
 router.get("/newPost", postController.showNewPostForm);
 router.get("/:id", postController.getPostById);
-router.post("/", postController.createPost);
+router.post("/createPost", upload.single("file"), postController.createPost);
 
 // UPDATE/EDIT
 router.get("/edit/:id", postController.showEditForm);
