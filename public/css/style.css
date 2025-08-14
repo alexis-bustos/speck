@@ -146,10 +146,11 @@ h1 {
 }
 
 .post {
-  margin-top: 20px;
+  margin: 10px;
   background-color: #ffffff44;
   padding: 10px 20px;
   border-radius: 5px;
+  width: 55%;
 }
 .post a {
   text-decoration: none;
@@ -157,8 +158,21 @@ h1 {
 }
 
 .post-content {
-  margin: 10px;
+  margin: 10px 0;
   background-color: #ffffff6d;
   padding: 5px 10px;
   border-radius: 5px;
+}
+.form-label {
+  text-shadow: 1px 1px 4px white;
+}
+.author {
+  font-weight: bold;
+}
+.post-image {
+  height: 20vh;
+  border-radius: 7px;
+}
+.short-content {
+  margin: 5px 0;
 }
