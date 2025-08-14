@@ -13,11 +13,14 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to top, #060c0b, #ffffff);
+  background-color: #ababab;
+  /* background: linear-gradient(to top, #3f4141, #d0cfcf); */
   /* background: linear-gradient(to bottom, #060c0b, #ffffff); */
   /* Optional: Ensures the background covers the entire viewport */
   min-height: 100vh;
-  margin: 0; /* Removes default body margin */
+  /* margin: 0; Removes default body margin */
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 h1 {
   color: dodgerblue;

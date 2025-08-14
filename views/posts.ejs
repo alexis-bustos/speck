@@ -26,7 +26,10 @@
     <img class="post-image" src="<%= post.image %>" alt="image" />
   </div>
   <% } %>
-  <p>By <%= post.author %> - <%= post.createdAt.toDateString() %></p>
+  <p>
+    By <span class="author"><%= post.author %></span> - <%=
+    post.createdAt.toDateString() %>
+  </p>
   <% if(user && post.userId === user.id) { %>
   <a href="/posts/<%= post._id %>/edit">Edit</a>
   <% } %> <% if(user && post.userId === user.id) { %>
