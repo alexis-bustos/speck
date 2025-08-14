@@ -11,4 +11,11 @@ const PostsSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
+// add the image and cloudinaryId fields to the schema.
+// Must use this because the schema has already been created.
+PostsSchema.add({
+  image: String,
+  cloudinaryId: String,
+});
+
 module.exports = mongoose.model("Post", PostsSchema);
