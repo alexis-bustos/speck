@@ -3,10 +3,17 @@
 <div class="post">
   <h2 data-id="<%= post._id %>"><%= post.title %></h2>
   <p class="post-content"><%= post.content %></p>
+  <!-- If image exists, show image -->
+  <% if(post.image) { %>
+  <div class="image-container">
+    <img class="post-image" src="<%= post.image%>" alt="image" />
+  </div>
+  <% } %>
   <p>
-    By <%= post.author %> - <%= post.createdAt ? post.createdAt.toDateString() :
-    'Unknown Date' %>
+    By <span class="author"><%= post.author %></span> - <%= post.createdAt ?
+    post.createdAt.toDateString() : 'Unknown Date' %>
   </p>
+
   <div class="edit-del-btns">
     <% if(user && String(post.userId) === user.id) { %>
 

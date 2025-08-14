@@ -8,6 +8,24 @@
   <h2 data-id="<%= post._id %>">
     <a href="/posts/<%= post.id %>"><%= post.title %></a>
   </h2>
+
+  <div class="short-content">
+    <%const words = post.content.split(/\s+/); const isLong = words.length > 25;
+    %>
+
+    <p>
+      <%= isLong ? words.slice(0, 25).join(" ") + "..." : post.content %> <% if
+      (isLong) { %>
+      <a href="/posts/<%= post._id %>">more</a>
+      <% } %>
+    </p>
+  </div>
+
+  <% if(post.image) { %>
+  <div class="image-container">
+    <img class="post-image" src="<%= post.image %>" alt="image" />
+  </div>
+  <% } %>
   <p>By <%= post.author %> - <%= post.createdAt.toDateString() %></p>
   <% if(user && post.userId === user.id) { %>
   <a href="/posts/<%= post._id %>/edit">Edit</a>
@@ -16,7 +34,6 @@
     <button type="submit">Delete</button>
   </form>
   <% } %>
-  <hr />
 </div>
 <% }) %>
 
