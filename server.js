@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -25,6 +26,17 @@ app.set("view engine", "ejs");
 
 // Static folder
 app.use(express.static("public"));
+
+// Allow your Netlify site + local dev to call the API
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:3000",
+      "https://speck-app.netlify.app",
+    ],
+  })
+);
 
 // Body parsing
 app.use(express.urlencoded({ extended: true }));
@@ -57,7 +69,11 @@ app.use(flash());
 app.use("/", mainRoutes);
 app.use("/posts", postRoutes);
 
-app.listen(process.env.PORT, () => {
-  console.log("Server is running, you better catch it!");
+// Add healthcheck route
+app.get("/health", (req, res) => res.json({ ok: true }));
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
 // comment
