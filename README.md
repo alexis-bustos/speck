@@ -1,6 +1,9 @@
 # Speck
 
 Speck is a social media application that allows users to post what they want to share. Speck is built using the MVC Architecture, we have also implemented "authorization" so folks can sign up
+<img width="1962" height="1128" alt="speck-main" src="https://github.com/user-attachments/assets/03429eb8-f63a-4cc9-8321-5ed417601bf2" />
+
+<img width="2216" height="1832" alt="Screenshot 2025-08-15 at 6 23 57 PM" src="https://github.com/user-attachments/assets/2bce1350-84c2-4aa8-9f5e-16fc95e8df56" />
 
 ---
 
