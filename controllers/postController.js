@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const Comment = require("../models/Comment");
 const cloudinary = require("../middleware/cloudinary");
 
 module.exports = {
@@ -43,10 +44,15 @@ module.exports = {
       if (!post) {
         return res.status(404).send("Post not found");
       }
-      // user && post.userId === user.id
+
+      // Get all comments for this specific post
+      const comments = Comment.find({ postId: req.params.id }).sort({
+        createdAt: -1,
+      });
 
       res.render("post", {
         post,
+        comments,
         user: req.user, // pass the User to the view as well to hide edit button on other Users' posts
       });
     } catch (error) {
