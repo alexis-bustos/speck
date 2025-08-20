@@ -256,3 +256,74 @@ h1 {
 .grid-item {
   margin: 10px;
 }
+
+/* COMMENT FORM */
+.comment-form {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #e6ecf0;
+  background-color: transparent; /* match page background */
+  /* height: auto; remove fixed height */
+}
+
+/* Avatar */
+.comment-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Composer column */
+.comment-composer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* TEXTAREA */
+.comment-textarea {
+  min-height: 40px;
+  max-height: 220px;
+  height: auto;
+  resize: none; /* prevent manual drag-resizing */
+  border: none;
+  outline: none;
+  font-size: 16px;
+  line-height: 1.4;
+  background-color: transparent;
+  color: #000;
+  padding: 8px 0;
+}
+
+/* Actions row */
+.comment-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Post button */
+.post-btn {
+  background: dodgerblue;
+  color: #fff;
+  border: none;
+  border-radius: 9999px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: opacity 0.15s ease, background 0.15s ease;
+}
+
+.post-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.post-btn:not([disabled]):hover {
+  background: #0d8ddb;
+}

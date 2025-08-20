@@ -40,6 +40,34 @@
       <button class="lightbox__close" aria-label="Close">&times;</button>
       <img id="lightbox-image" alt="" />
     </div>
+
+    <!-- COMMENTS SECTION -->
+    <h3>Comments</h3>
+    <section class="comments-sec">
+      <form class="comment-form" action="/comment/createComment" method="POST">
+        <img
+          class="comment-avatar"
+          src="<%= (user && user.avatarUrl) ? user.avatarUrl : '/images/default-avatar.png' %>"
+          alt="<%= (user && user.name) ? user.name : 'User' %>"
+          onerror="this.src='/images/default-avatar.png'" />
+
+        <div class="comment-composer">
+          <textarea
+            class="comment-textarea"
+            name="content"
+            id="content"
+            rows="1"
+            placeholder="Share your thoughts..."
+            required
+            aria-label="Write a comment"></textarea>
+
+          <div class="comment-actions">
+            <button class="post-btn" type="submit" disabled>Post</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
     <a class="submit-btns" href="/posts">Back</a>
   </section>
 </main>
@@ -83,4 +111,42 @@
     });
   });
 </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector(".comment-form");
+    if (!form) return;
+
+    const textarea = form.querySelector(".comment-textarea");
+    const postBtn = form.querySelector(".post-btn");
+
+    function autoResize(el) {
+      el.style.height = "0px"; // reset
+      el.style.height = el.scrollHeight + "px"; // grow
+    }
+
+    function updateState() {
+      const hasText = textarea.value.trim().length > 0;
+      postBtn.disabled = !hasText;
+    }
+
+    // Init
+    textarea.setAttribute("rows", "1");
+    autoResize(textarea);
+    updateState();
+
+    // Events
+    textarea.addEventListener("input", () => {
+      autoResize(textarea);
+      updateState();
+    });
+
+    textarea.addEventListener("keydown", (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter" && !postBtn.disabled) {
+        form.submit();
+      }
+    });
+  });
+</script>
+
 <%- include('partials/footer') -%>
