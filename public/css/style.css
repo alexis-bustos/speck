@@ -149,11 +149,11 @@ h1 {
 }
 
 .post {
-  margin: 10px;
+  margin-top: 10px;
   background-color: #ffffff44;
   padding: 10px 20px;
   border-radius: 5px;
-  width: 55%;
+  /* width: 55%; */
 }
 .post a {
   text-decoration: none;
@@ -225,4 +225,34 @@ h1 {
 
 .lightbox:not(.hidden) {
   cursor: zoom-out; /* clicking overlay closes */
+}
+
+/* GRID */
+.main-grid-container {
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+.main-grid-container > nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 5px;
+  margin-top: 100px;
+}
+.main-grid-container > nav a {
+  text-decoration: none;
+}
+.main-grid-container > nav a:hover {
+  filter: brightness(0.95);
+}
+.profile-btn {
+  color: rgb(23, 113, 203);
+  background-color: #ffffff44;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.grid-item {
+  margin: 10px;
 }
