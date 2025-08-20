@@ -10,6 +10,7 @@ const logger = require("morgan");
 const connectDB = require("./config/database");
 const mainRoutes = require("./routes/main");
 const postRoutes = require("./routes/postRoutes");
+const commentRoutes = require("./routes/commentRoute");
 const methodOverride = require("method-override");
 
 // Use .env file in the config folder
@@ -68,6 +69,7 @@ app.use(flash());
 // Setup routes for which the server is listening
 app.use("/", mainRoutes);
 app.use("/posts", postRoutes);
+app.use("/comment", commentRoutes);
 
 // Add healthcheck route
 app.get("/health", (req, res) => res.json({ ok: true }));
