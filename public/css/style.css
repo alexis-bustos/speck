@@ -246,7 +246,7 @@ h1 {
 .main-grid-container > nav a:hover {
   filter: brightness(0.95);
 }
-.profile-btn {
+.nav-btn {
   color: rgb(23, 113, 203);
   background-color: #ffffff44;
   padding: 5px 10px;
