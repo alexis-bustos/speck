@@ -1,57 +1,60 @@
 <%- include('partials/header') -%>
-<h1>All Posts</h1>
+<main class="main-grid-container">
+  <%- include('partials/nav') -%>
+  <section class="grid-item" id="feed">
+    <h1>All Specks</h1>
 
-<a class="submit-btns" href="/posts/newPost">Create New Post</a>
+    <a class="submit-btns" href="/posts/newPost">Create New Speck</a>
 
-<% post.forEach(post => { %>
-<div class="post">
-  <h2 data-id="<%= post._id %>">
-    <a href="/posts/<%= post.id %>"><%= post.title %></a>
-  </h2>
+    <% post.forEach(post => { %>
+    <div class="post">
+      <h2 data-id="<%= post._id %>">
+        <a href="/posts/<%= post.id %>"><%= post.title %></a>
+      </h2>
 
-  <div class="short-content">
-    <%const words = post.content.split(/\s+/); const isLong = words.length > 25;
-    %>
+      <div class="short-content">
+        <%const words = post.content.split(/\s+/); const isLong = words.length >
+        25; %>
 
-    <p>
-      <%= isLong ? words.slice(0, 25).join(" ") + "..." : post.content %> <% if
-      (isLong) { %>
-      <a href="/posts/<%= post._id %>">more</a>
+        <p>
+          <%= isLong ? words.slice(0, 25).join(" ") + "..." : post.content %> <%
+          if (isLong) { %>
+          <a href="/posts/<%= post._id %>">more</a>
+          <% } %>
+        </p>
+      </div>
+
+      <% if(post.image) { %>
+      <div class="image-container">
+        <img class="post-image" src="<%= post.image %>" alt="image" />
+      </div>
       <% } %>
-    </p>
-  </div>
-
-  <% if(post.image) { %>
-  <div class="image-container">
-    <img class="post-image" src="<%= post.image %>" alt="image" />
-  </div>
-  <% } %>
-  <p>
-    By <span class="author"><%= post.author %></span> - <%=
-    post.createdAt.toDateString() %>
-  </p>
-  <% if(user && post.userId === user.id) { %>
-  <a href="/posts/<%= post._id %>/edit">Edit</a>
-  <% } %> <% if(user && post.userId === user.id) { %>
-  <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
-    <button type="submit">Delete</button>
-  </form>
-  <% } %>
-</div>
-<% }) %>
-<!-- Lightbox modal -->
-<div
-  id="lightbox"
-  class="lightbox hidden"
-  role="dialog"
-  aria-modal="true"
-  aria-label="Image viewer"
-  tabindex="-1">
-  <button class="lightbox__close" aria-label="Close">&times;</button>
-  <img id="lightbox-image" alt="" />
-</div>
-
-<a class="submit-btns" href="/logout">Logout</a>
+      <p>
+        By <span class="author"><%= post.author %></span> - <%=
+        post.createdAt.toDateString() %>
+      </p>
+      <% if(user && post.userId === user.id) { %>
+      <a href="/posts/<%= post._id %>/edit">Edit</a>
+      <% } %> <% if(user && post.userId === user.id) { %>
+      <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete</button>
+      </form>
+      <% } %>
+    </div>
+    <% }) %>
+    <!-- Lightbox modal -->
+    <div
+      id="lightbox"
+      class="lightbox hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Image viewer"
+      tabindex="-1">
+      <button class="lightbox__close" aria-label="Close">&times;</button>
+      <img id="lightbox-image" alt="" />
+    </div>
+  </section>
+</main>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const lightbox = document.getElementById("lightbox");

@@ -1,44 +1,48 @@
 <%- include('partials/header') -%>
-<h1>Speck</h1>
-<div class="post">
-  <h2 data-id="<%= post._id %>"><%= post.title %></h2>
-  <p class="post-content"><%= post.content %></p>
-  <!-- If image exists, show image -->
-  <% if(post.image) { %>
-  <div class="image-container">
-    <img class="post-image" src="<%= post.image%>" alt="image" />
-  </div>
-  <% } %>
-  <p>
-    By <span class="author"><%= post.author %></span> - <%= post.createdAt ?
-    post.createdAt.toDateString() : 'Unknown Date' %>
-  </p>
+<main class="main-grid-container">
+  <%- include('partials/nav') -%>
+  <section class="grid-item">
+    <h1>Speck</h1>
+    <div class="post">
+      <h2 data-id="<%= post._id %>"><%= post.title %></h2>
+      <p class="post-content"><%= post.content %></p>
+      <!-- If image exists, show image -->
+      <% if(post.image) { %>
+      <div class="image-container">
+        <img class="post-image" src="<%= post.image%>" alt="image" />
+      </div>
+      <% } %>
+      <p>
+        By <span class="author"><%= post.author %></span> - <%= post.createdAt ?
+        post.createdAt.toDateString() : 'Unknown Date' %>
+      </p>
 
-  <div class="edit-del-btns">
-    <% if(user && String(post.userId) === user.id) { %>
+      <div class="edit-del-btns">
+        <% if(user && String(post.userId) === user.id) { %>
 
-    <a class="submit-btns" href="/posts/edit/<%= post._id %>">Edit</a>
+        <a class="submit-btns" href="/posts/edit/<%= post._id %>">Edit</a>
 
-    <% } %> <% if(user && String(post.userId) === user.id) { %>
-    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
-      <button class="delete-btns" type="submit">Delete</button>
-    </form>
-    <% } %>
-  </div>
-</div>
-<!-- Lightbox modal -->
-<div
-  id="lightbox"
-  class="lightbox hidden"
-  role="dialog"
-  aria-modal="true"
-  aria-label="Image viewer"
-  tabindex="-1">
-  <button class="lightbox__close" aria-label="Close">&times;</button>
-  <img id="lightbox-image" alt="" />
-</div>
-<a class="submit-btns" href="/posts">Back</a>
-<a class="submit-btns" href="/logout">Logout</a>
+        <% } %> <% if(user && String(post.userId) === user.id) { %>
+        <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+          <button class="delete-btns" type="submit">Delete</button>
+        </form>
+        <% } %>
+      </div>
+    </div>
+    <!-- Lightbox modal -->
+    <div
+      id="lightbox"
+      class="lightbox hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Image viewer"
+      tabindex="-1">
+      <button class="lightbox__close" aria-label="Close">&times;</button>
+      <img id="lightbox-image" alt="" />
+    </div>
+    <a class="submit-btns" href="/posts">Back</a>
+  </section>
+</main>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
