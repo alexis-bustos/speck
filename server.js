@@ -10,7 +10,7 @@ const logger = require("morgan");
 const connectDB = require("./config/database");
 const mainRoutes = require("./routes/main");
 const postRoutes = require("./routes/postRoutes");
-const commentRoutes = require("./routes/commentRoute");
+const commentRoutes = require("./routes/commentRoutes");
 const methodOverride = require("method-override");
 
 // Use .env file in the config folder
@@ -78,4 +78,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
-// comment
