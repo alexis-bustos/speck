@@ -46,13 +46,14 @@ module.exports = {
       }
 
       // Get all comments for this specific post
-      const comments = Comment.find({ postId: req.params.id }).sort({
-        createdAt: -1,
-      });
+      const comments = await Comment.find({ postId: post._id })
+        .populate("userId", "userName avatarUrl") // so you can show commenter name/avatar
+        .sort({ createdAt: -1 }) // newest first
+        .lean();
 
       res.render("post", {
         post,
-        comments,
+        comments: comments || [], // <-- ensures an array is passed, even if empty
         user: req.user, // pass the User to the view as well to hide edit button on other Users' posts
       });
     } catch (error) {
