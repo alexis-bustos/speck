@@ -69,6 +69,7 @@ h1 {
   cursor: pointer;
   display: inline-block;
   text-decoration: none;
+  text-align: center;
 }
 .post > div > .submit-btns {
   color: white;
@@ -128,6 +129,7 @@ h1 {
   display: block;
   width: 100%;
   cursor: pointer;
+  text-align: center;
 }
 
 .post-form {
@@ -255,6 +257,31 @@ h1 {
 
 .grid-item {
   margin: 10px;
+}
+
+/* Stack to 1 column on small screens */
+@media (max-width: 500px) {
+  .main-grid-container {
+    grid-template-columns: 1fr; /* from 2 cols -> 1 col */
+  }
+
+  /* Optional tweaks for nicer mobile layout */
+  .main-grid-container > nav {
+    margin-top: 0; /* remove big sidebar offset */
+    width: 100%;
+    align-items: stretch; /* make nav buttons fill width if you want */
+  }
+
+  .grid-item {
+    margin: 10px 0; /* tighten margins */
+  }
+
+  /* If you want full-width nav buttons on mobile */
+  .nav-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
 }
 
 /* COMMENT FORM */
