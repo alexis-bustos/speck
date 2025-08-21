@@ -45,6 +45,7 @@
     <h3>Comments</h3>
     <section class="comments-sec">
       <form class="comment-form" action="/comment/createComment" method="POST">
+        <input type="hidden" name="postId" value="<%= post._id %>" />
         <img
           class="comment-avatar"
           src="<%= (user && user.avatarUrl) ? user.avatarUrl : '/images/default-avatar.png' %>"
@@ -66,6 +67,32 @@
           </div>
         </div>
       </form>
+
+      <% const _comments = (typeof comments !== 'undefined' &&
+      Array.isArray(comments)) ? comments : []; %>
+      <ul class="comment-list">
+        <% if (_comments.length === 0) { %>
+        <li class="comment-empty">Be the first to comment.</li>
+        <% } %> <% _comments.forEach(c => { %>
+        <li class="comment-item">
+          <img
+            class="comment-avatar"
+            src="<%= c.userId?.avatarUrl || '/images/default-avatar.png' %>"
+            alt="<%= c.userId?.userName || 'User' %>" />
+          <div class="comment-body">
+            <div class="comment-meta">
+              <span class="comment-author"
+                ><%= c.userId?.userName || 'User' %></span
+              >
+              <span class="comment-time"
+                ><%= new Date(c.createdAt).toLocaleString() %></span
+              >
+            </div>
+            <p class="comment-text"><%= c.content %></p>
+          </div>
+        </li>
+        <% }) %>
+      </ul>
     </section>
 
     <a class="submit-btns" href="/posts">Back</a>
@@ -119,10 +146,12 @@
 
     const textarea = form.querySelector(".comment-textarea");
     const postBtn = form.querySelector(".post-btn");
+    if (!textarea || !postBtn) return;
 
     function autoResize(el) {
-      el.style.height = "0px"; // reset
-      el.style.height = el.scrollHeight + "px"; // grow
+      // Reset height so scrollHeight is accurate
+      el.style.height = "0px";
+      el.style.height = el.scrollHeight + "px";
     }
 
     function updateState() {
@@ -135,12 +164,15 @@
     autoResize(textarea);
     updateState();
 
-    // Events
-    textarea.addEventListener("input", () => {
-      autoResize(textarea);
-      updateState();
-    });
+    // Events: cover typing, paste, drag-drop
+    ["input", "change"].forEach((evt) =>
+      textarea.addEventListener(evt, () => {
+        autoResize(textarea);
+        updateState();
+      })
+    );
 
+    // Optional: Cmd/Ctrl + Enter to submit
     textarea.addEventListener("keydown", (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "Enter" && !postBtn.disabled) {
         form.submit();
