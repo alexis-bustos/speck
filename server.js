@@ -14,18 +14,24 @@ const commentRoutes = require("./routes/commentRoutes");
 const methodOverride = require("method-override");
 
 // Use .env file in the config folder
+// console.log("[boot] loading env");
 require("dotenv").config({ path: "./config/.env" });
 
 // Passport config
+// console.log("[boot] passport config");
 require("./config/passport")(passport);
 
 // Connect to DB
-connectDB();
+// console.log("[boot] connectDB()");
+connectDB()
+  .then(() => console.log("[boot] Mongo connected (connectDB resolved)"))
+  .catch((e) => console.error("[boot] connectDB failed:", e));
 
 // Using EJS for views
 app.set("view engine", "ejs");
 
 // Static folder
+// console.log("[boot] static/public");
 app.use(express.static("public"));
 
 // Allow your Netlify site + local dev to call the API
@@ -40,6 +46,7 @@ app.use(
 );
 
 // Body parsing
+// console.log("[boot] body parsers");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -50,6 +57,7 @@ app.use(logger("dev"));
 app.use(methodOverride("_method"));
 
 // Setup Sessions - stored in MongoDB
+// console.log("[boot] sessions");
 app.use(
   session({
     secret: "keyboard cat", // can be anything you want
@@ -67,6 +75,7 @@ app.use(passport.session());
 app.use(flash());
 
 // Setup routes for which the server is listening
+// console.log("[boot] routes mount");
 app.use("/", mainRoutes);
 app.use("/posts", postRoutes);
 app.use("/comment", commentRoutes);
@@ -74,6 +83,7 @@ app.use("/comment", commentRoutes);
 // Add healthcheck route
 app.get("/health", (req, res) => res.json({ ok: true }));
 
+// console.log("[boot] calling listen()");
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
