@@ -21,7 +21,26 @@
       </div>
 
       <% if (viewer && String(viewer.id) === String(userProfile._id)) { %>
-      <a class="submit-btns profile-edit" href="#">Edit Profile</a>
+      <form
+        id="avatar-form"
+        action="/profile/avatar"
+        method="POST"
+        enctype="multipart/form-data"
+        class="profile-change-image">
+        <input
+          id="avatar-input"
+          type="file"
+          name="avatar"
+          accept="image/*"
+          hidden />
+
+        <button
+          type="button"
+          class="submit-btns profile-edit"
+          id="avatar-trigger">
+          Change image
+        </button>
+      </form>
       <% } %>
     </header>
 
@@ -100,4 +119,20 @@
     });
   });
 </script>
+
+<!-- script to auto-open the file picker and submit on select -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const trigger = document.getElementById("avatar-trigger");
+    const input = document.getElementById("avatar-input");
+    const form = document.getElementById("avatar-form");
+    if (!trigger || !input || !form) return;
+
+    trigger.addEventListener("click", () => input.click());
+    input.addEventListener("change", () => {
+      if (input.files && input.files.length) form.submit();
+    });
+  });
+</script>
+
 <%- include('partials/footer') -%>
