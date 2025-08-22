@@ -1,5 +1,7 @@
 <nav class="grid-item">
-  <a class="nav-btn" href="#">Profile</a>
+  <% if (user) { %>
+  <a class="nav-btn" href="/profile/<%= user.userName %>">My Profile</a>
+  <% } %>
   <a class="nav-btn" href="/posts">Feed</a>
   <a class="submit-btns" href="/logout">Logout</a>
 </nav>
