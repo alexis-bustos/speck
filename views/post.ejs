@@ -74,7 +74,7 @@
         <% if (_comments.length === 0) { %>
         <li class="comment-empty">Be the first to comment.</li>
         <% } %> <% _comments.forEach(c => { %>
-        <li class="comment-item">
+        <li class="comment-item" id="comment-<%= c._id %>">
           <img
             class="comment-avatar"
             src="<%= c.userId?.avatarUrl || '/images/default-avatar.png' %>"
@@ -89,6 +89,27 @@
               >
             </div>
             <p class="comment-text"><%= c.content %></p>
+
+            <!-- Delete comment button -->
+            <% if (user && c.userId && String(c.userId._id) === String(user.id))
+            { %>
+            <div class="comment-menu">
+              <button
+                class="menu-btn"
+                aria-haspopup="true"
+                aria-expanded="false"
+                title="More">
+                ⋮
+              </button>
+              <div class="menu" hidden>
+                <form
+                  method="POST"
+                  action="/comment/<%= c._id %>?_method=DELETE">
+                  <button type="submit" class="menu-delete">Delete</button>
+                </form>
+              </div>
+            </div>
+            <% } %>
           </div>
         </li>
         <% }) %>
@@ -177,6 +198,47 @@
       if ((e.ctrlKey || e.metaKey) && e.key === "Enter" && !postBtn.disabled) {
         form.submit();
       }
+    });
+  });
+</script>
+
+<!-- 3 dot menu button to delete comment -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Open/close the small menu
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".menu-btn");
+      const allMenus = document.querySelectorAll(".comment-menu .menu");
+
+      if (btn) {
+        const wrap = btn.closest(".comment-menu");
+        const menu = wrap.querySelector(".menu");
+        allMenus.forEach((m) => {
+          if (m !== menu) m.hidden = true;
+        });
+        menu.hidden = !menu.hidden;
+        btn.setAttribute("aria-expanded", String(!menu.hidden));
+        return;
+      }
+
+      // Clicked outside any menu → close all
+      if (!e.target.closest(".comment-menu")) {
+        allMenus.forEach((m) => (m.hidden = true));
+        document
+          .querySelectorAll(".menu-btn[aria-expanded='true']")
+          .forEach((b) => b.setAttribute("aria-expanded", "false"));
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      document
+        .querySelectorAll(".comment-menu .menu")
+        .forEach((m) => (m.hidden = true));
+      document
+        .querySelectorAll(".menu-btn[aria-expanded='true']")
+        .forEach((b) => b.setAttribute("aria-expanded", "false"));
     });
   });
 </script>
