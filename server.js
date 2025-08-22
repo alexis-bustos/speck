@@ -73,6 +73,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Send no-store cache headers for HTML to prevent stale pages after logout
 app.use((req, res, next) => {
   // Only for HTML GETs (keeps static assets cachable)
   if (req.method === "GET" && req.accepts("html")) {
