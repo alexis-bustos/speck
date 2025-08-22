@@ -1,22 +1,28 @@
 <%- include('partials/header') -%>
 <body>
-  <h1>Create a New Speck</h1>
-  <form
-    class="post-form"
-    action="/posts/createPost"
-    enctype="multipart/form-data"
-    method="POST">
-    <input class="input post-input" name="title" placeholder="Title" required />
+  <main class="landing">
+    <h1>Create a New Speck</h1>
+    <form
+      class="post-form"
+      action="/posts/createPost"
+      enctype="multipart/form-data"
+      method="POST">
+      <input
+        class="input post-input"
+        name="title"
+        placeholder="Title"
+        required />
 
-    <textarea
-      class="input post-input content-area"
-      name="content"
-      placeholder="Content"></textarea>
+      <textarea
+        class="input post-input content-area"
+        name="content"
+        placeholder="Content"></textarea>
 
-    <label for="imgUpload" class="form-label">Optionally add Image</label>
-    <input type="file" class="form-control" id="imageUpload" name="file" />
-    <button class="submit-btns expand-btn" type="submit">Post</button>
-  </form>
-  <a class="submit-btns" href="/posts">Back</a>
+      <label for="imgUpload" class="form-label">Optionally add Image</label>
+      <input type="file" class="form-control" id="imageUpload" name="file" />
+      <button class="submit-btns expand-btn" type="submit">Post</button>
+    </form>
+    <a class="submit-btns" href="/posts">Back</a>
+  </main>
 </body>
 <%- include('partials/footer') -%>
