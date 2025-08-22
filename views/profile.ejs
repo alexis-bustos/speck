@@ -1,0 +1,103 @@
+<%- include('partials/header') -%>
+<main class="main-grid-container">
+  <%- include('partials/nav') -%>
+
+  <section class="grid-item">
+    <header class="profile-header">
+      <img
+        class="profile-avatar"
+        src="<%= userProfile.avatarUrl || '/images/default-avatar.png' %>"
+        alt="<%= userProfile.userName %>" />
+
+      <div class="profile-meta">
+        <h2 class="profile-name"><%= userProfile.userName %></h2>
+        <% if (userProfile.bio) { %>
+        <p class="profile-bio"><%= userProfile.bio %></p>
+        <% } %>
+        <div class="profile-stats">
+          <span><strong><%= counts.posts %></strong> Posts</span>
+          <span><strong><%= counts.comments %></strong> Comments</span>
+        </div>
+      </div>
+
+      <% if (viewer && String(viewer.id) === String(userProfile._id)) { %>
+      <a class="submit-btns profile-edit" href="#">Edit Profile</a>
+      <% } %>
+    </header>
+
+    <h3 class="userSpecksheading"><%= userProfile.userName %>'s Specks</h3>
+    <% if (!posts.length) { %>
+    <p>No posts yet.</p>
+    <% } %> <% posts.forEach(p => { %>
+    <article class="post">
+      <h2><a href="/posts/<%= p._id %>"><%= p.title %></a></h2>
+      <div class="short-content">
+        <% const words = p.content.split(/\s+/); const isLong = words.length >
+        25; %>
+        <p>
+          <%= isLong ? words.slice(0,25).join(' ') + '…' : p.content %> <% if
+          (isLong) { %><a href="/posts/<%= p._id %>">more</a><% } %>
+        </p>
+      </div>
+      <% if (p.image) { %>
+      <div class="image-container">
+        <img class="post-image" src="<%= p.image %>" alt="" />
+      </div>
+      <% } %>
+      <p class="post-meta"><%= new Date(p.createdAt).toDateString() %></p>
+    </article>
+    <% }) %>
+    <!-- Lightbox modal -->
+    <div
+      id="lightbox"
+      class="lightbox hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Image viewer"
+      tabindex="-1">
+      <button class="lightbox__close" aria-label="Close">&times;</button>
+      <img id="lightbox-image" alt="" />
+    </div>
+  </section>
+</main>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-image");
+    const closeBtn = document.querySelector(".lightbox__close");
+
+    // Open when clicking any post image
+    document.querySelectorAll(".post-image").forEach((img) => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt || "";
+        lightbox.classList.remove("hidden");
+        document.body.style.overflow = "hidden"; // prevent background scroll
+        lightbox.focus();
+      });
+    });
+
+    const closeLightbox = () => {
+      lightbox.classList.add("hidden");
+      lightboxImg.src = "";
+      document.body.style.overflow = "";
+    };
+
+    // Close on X button
+    closeBtn.addEventListener("click", closeLightbox);
+
+    // Close when clicking the overlay (but not the image)
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Close on Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !lightbox.classList.contains("hidden")) {
+        closeLightbox();
+      }
+    });
+  });
+</script>
+<%- include('partials/footer') -%>
