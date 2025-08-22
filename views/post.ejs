@@ -23,12 +23,15 @@
         - <%= post.createdAt ? post.createdAt.toDateString() : 'Unknown Date' %>
       </p>
 
+      <% const ownerId = String(post.userId?._id || post.userId); const viewerId
+      = String((user && (user._id || user.id)) || ''); const isOwner = user &&
+      ownerId === viewerId; %>
+
       <div class="edit-del-btns">
-        <% if(user && String(post.userId) === user.id) { %>
+        <% if(isOwner) { %>
 
         <a class="submit-btns" href="/posts/edit/<%= post._id %>">Edit</a>
 
-        <% } %> <% if(user && String(post.userId) === user.id) { %>
         <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
           <button class="delete-btns" type="submit">Delete</button>
         </form>
