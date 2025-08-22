@@ -13,8 +13,14 @@
       </div>
       <% } %>
       <p>
-        By <span class="author"><%= post.author %></span> - <%= post.createdAt ?
-        post.createdAt.toDateString() : 'Unknown Date' %>
+        By
+        <span class="author"
+          ><a
+            href="/profile/<%= encodeURIComponent(post.userId?.userName || '') %>"
+            ><%= post.userId?.userName || post.author %></a
+          ></span
+        >
+        - <%= post.createdAt ? post.createdAt.toDateString() : 'Unknown Date' %>
       </p>
 
       <div class="edit-del-btns">
@@ -75,10 +81,14 @@
         <li class="comment-empty">Be the first to comment.</li>
         <% } %> <% _comments.forEach(c => { %>
         <li class="comment-item" id="comment-<%= c._id %>">
-          <img
-            class="comment-avatar"
-            src="<%= c.userId?.avatarUrl || '/images/default-avatar.png' %>"
-            alt="<%= c.userId?.userName || 'User' %>" />
+          <a
+            href="/profile/<%= encodeURIComponent(c.userId?.userName || '') %>">
+            <img
+              class="comment-avatar"
+              src="<%= c.userId?.avatarUrl || '/images/default-avatar.png' %>"
+              alt="<%= c.userId?.userName || 'User' %>" />
+          </a>
+
           <div class="comment-body">
             <div class="comment-meta">
               <span class="comment-author"
