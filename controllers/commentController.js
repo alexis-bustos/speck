@@ -27,30 +27,34 @@ module.exports = {
       console.log(err);
     }
   },
-  // deletePost: async (req, res) => {
-  //   try {
-  //     const post = await Post.findById(req.params.id);
-  //     if (String(post.userId) !== req.user.id) {
-  //       return res.status(403).send("Unauthorized");
-  //     }
-  //     await Post.findByIdAndDelete(req.params.id);
-  //     console.log("Deleted Post");
-  //     res.redirect("/posts");
-  //   } catch (err) {
-  //     res.status(500).send("Error deleting post");
-  //   }
-  // },
-  // updatePost: async (req, res) => {
+  deleteComment: async (req, res) => {
+    try {
+      const comment = await Comment.findById(req.params.id);
+      const postId = comment.postId;
+
+      const userId = req.user?._id || req.user?.id;
+      if (String(comment.userId) !== String(userId)) {
+        return res.status(403).send("Unauthorized");
+      }
+
+      await Comment.findByIdAndDelete(comment._id);
+      console.log("Deleted Comment");
+      res.redirect(`/posts/${postId}`);
+    } catch (err) {
+      res.status(500).send("Error deleting post");
+    }
+  },
+  // updateComment: async (req, res) => {
   //   try {
   //     const { title, content } = req.body;
-  //     const post = await Post.findById(req.params.id);
-  //     if (!post) {
-  //       return res.status(404).send("Post not found");
+  //     const comment = await Comment.findById(req.params.id);
+  //     if (!comment) {
+  //       return res.status(404).send("Comment not found");
   //     }
-  //     if (String(post.userId) !== req.user.id) {
+  //     if (String(comment.userId) !== req.user.id) {
   //       return res.status(403).send("Unauthorized");
   //     }
-  //     await Post.findByIdAndUpdate(req.params.id, {
+  //     await Comment.findByIdAndUpdate(req.params.id, {
   //       title,
   //       content,
   //       author: req.user.userName,
