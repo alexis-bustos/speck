@@ -39,7 +39,9 @@ module.exports = {
   },
   getPostById: async (req, res) => {
     try {
-      const post = await Post.findById(req.params.id);
+      const post = await Post.findById(req.params.id)
+        .populate("userId", "userName avatarUrl")
+        .lean();
 
       if (!post) {
         return res.status(404).send("Post not found");
