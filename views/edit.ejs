@@ -1,18 +1,20 @@
 <%- include('partials/header') -%>
-<h1>Edit Blog Post</h1>
-<form
-  class="post-form"
-  action="/posts/<%= post._id %>?_method=PUT"
-  method="POST">
-  <input
-    class="input post-input"
-    name="title"
-    value="<%= post.title %>"
-    required />
-  <textarea class="input post-input content-area" name="content">
-<%= post.content %></textarea
-  >
-  <button class="update-btns expand-btn" type="submit">Update</button>
-</form>
-<a class="submit-btns" href="/posts/<%= post._id %>">Cancel</a>
+<main class="landing">
+  <h1>Edit Blog Post</h1>
+  <form
+    class="post-form"
+    action="/posts/<%= post._id %>?_method=PUT"
+    method="POST">
+    <input
+      class="input post-input"
+      name="title"
+      value="<%= post.title %>"
+      required />
+    <textarea class="input post-input content-area" name="content">
+  <%= post.content %></textarea
+    >
+    <button class="update-btns expand-btn" type="submit">Update</button>
+  </form>
+  <a class="submit-btns" href="/posts/<%= post._id %>">Cancel</a>
+</main>
 <%- include('partials/footer') -%>
