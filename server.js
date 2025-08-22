@@ -13,6 +13,7 @@ const postRoutes = require("./routes/postRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const methodOverride = require("method-override");
+const { ensureAuth } = require("./middleware/auth");
 
 // Use .env file in the config folder
 // console.log("[boot] loading env");
@@ -72,15 +73,25 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req, res, next) => {
+  // Only for HTML GETs (keeps static assets cachable)
+  if (req.method === "GET" && req.accepts("html")) {
+    res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
+    res.set("Pragma", "no-cache");
+    res.set("Expires", "0");
+  }
+  next();
+});
+
 // Use flash messages for errors, info, ect...
 app.use(flash());
 
 // Setup routes for which the server is listening
 // console.log("[boot] routes mount");
 app.use("/", mainRoutes);
-app.use("/posts", postRoutes);
-app.use("/comment", commentRoutes);
-app.use("/profile", profileRoutes);
+app.use("/posts", ensureAuth, postRoutes);
+app.use("/comment", ensureAuth, commentRoutes);
+app.use("/profile", ensureAuth, profileRoutes);
 
 // Add healthcheck route
 app.get("/health", (req, res) => res.json({ ok: true }));
