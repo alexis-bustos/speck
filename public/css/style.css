@@ -390,3 +390,56 @@ h1 {
   margin: 4px 0 0;
   white-space: pre-wrap;
 }
+
+/* three-dots delete menu */
+.comment-item {
+  position: relative;
+}
+.comment-menu {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 20;
+}
+
+.menu-btn {
+  background: #ababab;
+  border: 0;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 20px;
+}
+.menu-btn:hover {
+  filter: brightness(0.95);
+}
+
+.menu {
+  position: absolute;
+  right: 0;
+  top: 24px;
+  background: #fff;
+  border: 1px solid #e6ecf0;
+  border-radius: 8px;
+  padding: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  z-index: 30;
+}
+
+.menu[hidden] {
+  display: none;
+}
+
+.menu-delete {
+  background: none;
+  border: 0;
+  padding: 6px 8px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.menu-delete:hover {
+  background: #f5f8fa;
+}
